@@ -1,5 +1,5 @@
-# This file includes modifications to [Original Library] by [Original Author]
-# Original repository: https://github.com/username/original-library
+# This file includes modifications to 'node2vec' by 'eliorc'
+# Original repository: https://github.com/eliorc/node2vec
 # Changes made:
 # - Added helper functions 
 # - Added functionality to start random walks from a specific list of nodes (starting_nodes)
