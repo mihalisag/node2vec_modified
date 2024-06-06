@@ -1,3 +1,8 @@
+# This file includes modifications to 'node2vec' by 'eliorc'
+# Original repository: https://github.com/eliorc/node2vec
+# Changes made:
+# - Added functionality to start random walks from a specific list of nodes (starting_nodes)
+
 import random
 from tqdm import tqdm
 
