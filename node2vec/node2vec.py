@@ -1,3 +1,10 @@
+# This file includes modifications to [Original Library] by [Original Author]
+# Original repository: https://github.com/username/original-library
+# Changes made:
+# - Added helper functions 
+# - Added functionality to start random walks from a specific list of nodes (starting_nodes)
+
+
 import os
 import random
 from collections import defaultdict
@@ -10,14 +17,12 @@ from joblib import Parallel, delayed
 from tqdm.auto import tqdm
 
 from .parallel import parallel_generate_walks
-# from .parallel import parallel_generate_walks
 
-# --------
-# My code
+# Modified
+# ---
 
 import pickle
 from datetime import datetime
-
 
 def generate_timestamp():
     '''
@@ -51,9 +56,9 @@ def save_walks(graph, walks, r, l, p, q, ns):#, dataset):
 
     return file_path
         
-# -------    
-    
-    
+# ---    
+
+
 class Node2Vec:
     FIRST_TRAVEL_KEY = 'first_travel_key'
     PROBABILITIES_KEY = 'probabilities'
@@ -94,7 +99,7 @@ class Node2Vec:
         self.workers = workers
         self.quiet = quiet
         self.d_graph = defaultdict(dict)
-        self.starting_nodes = starting_nodes # ADDITION
+        self.starting_nodes = starting_nodes
 
         if sampling_strategy is None:
             self.sampling_strategy = {}
@@ -115,8 +120,6 @@ class Node2Vec:
 
         self._precompute_probabilities()
         self.walks = self._generate_walks()
-
-        #print(d_graph)
 
 
     def _precompute_probabilities(self):
@@ -194,9 +197,6 @@ class Node2Vec:
             d_graph[source][self.NEIGHBORS_KEY] = list(self.graph.neighbors(source))
 
 
-        # Maybe add here a line where the d_graph gets updated with 
-        # a new d_graph for the updated small graph?
-
     def _generate_walks(self) -> list:
         """
         Generates the random walks which will be used as the skip-gram input.
@@ -262,10 +262,5 @@ class Node2Vec:
 
         if 'sg' not in skip_gram_params:
             skip_gram_params['sg'] = 1
-
-        # Maybe here update self.walks parameter before passing it to Word2vec 
-        # to include the updated graph ones. Here it is more suitable from the
-        # generate_walks function as it would get more complicated and here we
-        # just pass the walks as a parameter (?)
 
         return gensim.models.Word2Vec(self.walks, **skip_gram_params)
