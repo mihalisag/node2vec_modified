@@ -5,7 +5,7 @@ from tqdm import tqdm
 def parallel_generate_walks(d_graph: dict, global_walk_length: int, num_walks: int, cpu_num: int,
                             sampling_strategy: dict = None, num_walks_key: str = None, walk_length_key: str = None,
                             neighbors_key: str = None, probabilities_key: str = None, first_travel_key: str = None,
-                            quiet: bool = False) -> list:
+                            quiet: bool = False, starting_nodes: list = None) -> list:
     """
     Generates the random walks which will be used as the skip-gram input.
 
@@ -24,8 +24,11 @@ def parallel_generate_walks(d_graph: dict, global_walk_length: int, num_walks: i
             pbar.update(1)
 
         # Shuffle the nodes
-        shuffled_nodes = list(d_graph.keys())
-        random.shuffle(shuffled_nodes)
+        if starting_nodes:
+            shuffled_nodes = starting_nodes
+        else:
+            shuffled_nodes = list(d_graph.keys())
+            random.shuffle(shuffled_nodes)
 
         # Start a random walk from every node
         for source in shuffled_nodes:
