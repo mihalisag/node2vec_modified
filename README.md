@@ -7,3 +7,5 @@ This repository contains a modified version of [node2vec](https://github.com/eli
 
 ## Overview of Modifications
 
+- Added some helper functions (generate execution timestamp, save random walks)
+- Added functionality to start random walks from a specific list of nodes 
